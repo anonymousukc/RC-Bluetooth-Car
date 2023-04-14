@@ -1,0 +1,26 @@
+int motor1 = 9;   // define motor 1 pin
+int motor2 = 10;  // define motor 2 pin
+
+void setup() {
+  Serial.begin(9600);  // initialize serial communication
+  pinMode(motor1, OUTPUT); // set motor 1 as output
+  pinMode(motor2, OUTPUT); // set motor 2 as output
+}
+
+void loop() {
+  if (Serial.available() > 0) {  // if data is available on the serial port
+    char command = Serial.read(); // read the incoming data
+    if (command == 'F') { // if the command is forward
+      digitalWrite(motor1, HIGH); // turn motor 1 forward
+      digitalWrite(motor2, LOW);  // turn motor 2 backward
+    }
+    if (command == 'B') { // if the command is backward
+      digitalWrite(motor1, LOW);  // turn motor 1 backward
+      digitalWrite(motor2, HIGH); // turn motor 2 forward
+    }
+    if (command == 'S') { // if the command is stop
+      digitalWrite(motor1, LOW);  // stop motor 1
+      digitalWrite(motor2, LOW);  // stop motor 2
+    }
+  }
+}
